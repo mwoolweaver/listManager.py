@@ -2,7 +2,7 @@
 
 enabled | name | description | comment
 ------------ | -------------| ------------ | -------------  
-1 for enable, 0 for diabled | Name of Group | A description | The string we use to track entries for this group
+0 for diabled,<br>1 for enable | Name of Group | A description | The string we use to track entries for this group
 
 for more info see ---> https://docs.pi-hole.net/database/gravity/groups/#group-management
 ___
