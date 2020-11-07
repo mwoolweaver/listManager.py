@@ -11,7 +11,7 @@ def checkGroupIFCorrect(gravity, sqlError, groups, commentTags):
 
     needGroupList = []
     x = 0
-    ALLHAVE = False
+    
     debuginfo('[i] Checking for group_id on entries added by script!!!!!')
     for group in groups: # For every group in list
         
@@ -38,6 +38,7 @@ def checkGroupIFCorrect(gravity, sqlError, groups, commentTags):
         return(needGroupList, ALLHAVE)
 
     else:
+        ALLHAVE = False
         return(needGroupList, ALLHAVE)
 
 def addGroupToDomain(gravity, sqlError, needGroups, groups, newDomains, newGroup):
@@ -60,18 +61,23 @@ def addGroupToDomain(gravity, sqlError, needGroups, groups, newDomains, newGroup
 
                         debuginfo(domain[0:3])
                         debuginfo(groupID)
-                        if newDomains == True:
-                            gravity.executescript("UPDATE domainlist_by_group SET group_id={} WHERE domainlist_id = {} ".format(group[0][0], domain[0]))
-                            debuginfo("UPDATE domainlist_by_group SET group_id={} WHERE domainlist_id = {} ".format(group[0][0], domain[0]))
-                            continue
+                        if newDomains == True or ALLHAVE == False:
+                            sql_add_group_id = "UPDATE domainlist_by_group SET group_id={} WHERE domainlist_id = {} ".format(group[0][0], domain[0])
                         elif newGroup == True:
-                            gravity.executescript("INSERT INTO domainlist_by_group (domainlist_id, group_id) VALUES ({},{}) ".format(domain[0], group[0][0]))
-                            debuginfo("updating group_id to {} for {}".format(group[0][0], domain[2]))
-                            continue
+                            sql_add_group_id = "INSERT INTO domainlist_by_group (domainlist_id, group_id) VALUES ({},{}) ".format(domain[0], group[0][0])
                         elif ALLHAVE == False:
-                            gravity.executescript("UPDATE domainlist_by_group SET group_id={} WHERE domainlist_id = {} ".format(group[0][0], domain[0]))
-                            debuginfo("INSERT INTO domainlist_by_group (domainlist_id, group_id) VALUES ({},{})".format(domain[0], group[0][0]))
+                            sql_add_group_id = "UPDATE domainlist_by_group SET group_id={} WHERE domainlist_id = {} ".format(group[0][0], domain[0])
+                        else:
+                            debuginfo('Something is wrong @ add group to entry')
+                            
+                        try:
+                            gravity.executescript(sql_add_group_id)
+                            debuginfo(sql_add_group_id)
                             continue
+                        except sqlError as error:
+                            debuginfo('Failed to {}'.format(sql_add_group_id))
+                            debuginfo(error)
+
 
 def checkGroup(gravity, sqlError, ourGroupsInGravity, commentTags, newAddition, newGroup):
 
