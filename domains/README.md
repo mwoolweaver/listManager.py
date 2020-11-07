@@ -1,8 +1,6 @@
 ## Why .tsv??
 
-> TSV is an alternative to the common comma-separated values (CSV) format, which often causes difficulties because of the need to escape commas – literal commas are very common in text data, but literal tab stops are infrequent in running text.
-
-for more info on `.tsv` see ---> http://jkorpela.fi/TSV.html
+> TSV is an alternative to the common comma-separated values (CSV) format, which often causes difficulties because of the need to escape commas – literal commas are very common in text data, but literal tab stops are infrequent in running text.[[1](https://en.wikipedia.org/wiki/Tab-separated_values)]
 ___
 ## groups.tsv
 
