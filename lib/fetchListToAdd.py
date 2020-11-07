@@ -12,20 +12,15 @@ def fetchEntries(filesWeNeed):
 
     listWeNeed = []
     for fileNeeded in filesWeNeed:
-
         location = pandas.read_csv(fileNeeded,delimiter='\t',encoding='utf-8')
-
         test3 = list(location.itertuples(index=False, name=None))
-        #print(test3)
         listWeNeed.append(test3)
-
-    #debuginfo(listWeNeed)
     
     return (listWeNeed)
 
 def fetchGroups(fileNeeded):
     
     location = pandas.read_csv(fileNeeded,delimiter='\t',encoding='utf-8')
-    test3 = list(location.itertuples(index=False, name=None))
+    groups = list(location.itertuples(index=False, name=None))
 
-    return (test3)
+    return (groups)
