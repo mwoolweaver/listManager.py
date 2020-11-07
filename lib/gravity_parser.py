@@ -7,15 +7,10 @@
 
 from lib.debug import debuginfo, debuginfoDBV, debuginfoDBVV, debuginfoDBVVV, sqlError
 
-def parseGravity(filesFound, groupsWeNeed, gravityFetched):
+def parseGravity(filesFound, groups, gravityFetched):
 
     needToDeleteByGroup = []
     needToAddByGroup = []
-
-    groups = groupsWeNeed
-
-
-    entriesToAddByGroup = filesFound
 
     scriptAddGravityByGroup = gravityFetched[0]
     userAddGravity = gravityFetched[1]
@@ -23,7 +18,7 @@ def parseGravity(filesFound, groupsWeNeed, gravityFetched):
     domainsByGroupNew = []
     #domainCommentsByGroupNew = []
     # Make a list of domains in new list
-    #debuginfo(entriesToAddByGroup)
+    #debuginfo(filesFound)
     for groupOfEntries in filesFound:
         #print('\n\n')
         #print (groupOfEntries)
@@ -172,14 +167,14 @@ def parseGravity(filesFound, groupsWeNeed, gravityFetched):
                     else:
                         debuginfo('    - {} . {}'.format(NEWGROUP.index(new)+1, new))
                         newENTRYIndex = NEWGROUP.index(new)
-                        needToAdd.append(entriesToAddByGroup[domainGroupIndex][newENTRYIndex])
+                        needToAdd.append(filesFound[domainGroupIndex][newENTRYIndex])
                         continue
 
                 else:
                     debuginfoDBV('')
                     debuginfoDBV('{} - {}'.format(new, NEWGROUP.index(new)))
                     newENTRYIndex = NEWGROUP.index(new)
-                    debuginfoDBV(entriesToAddByGroup[domainGroupIndex][newENTRYIndex])
+                    debuginfoDBV(filesFound[domainGroupIndex][newENTRYIndex])
                     needToAdd = []
                     continue
 
@@ -199,7 +194,7 @@ def parseGravity(filesFound, groupsWeNeed, gravityFetched):
             for new in NEWGROUP:
 
                 newENTRYIndex = NEWGROUP.index(new)
-                needToAdd.append(entriesToAddByGroup[domainGroupIndex][newENTRYIndex])
+                needToAdd.append(filesFound[domainGroupIndex][newENTRYIndex])
             
             if needToAdd != []:
                 needToAddByGroup.append(needToAdd)
