@@ -8,4 +8,4 @@ enabled | name | description | comment
 
 tpye | domain | enable | comment
 ------------ | -------------| ------------ | -------------  
-0 = exact whitelist,<br> 1 = exact blacklist,<br> 2 = regex whitelist,<br> 3 = regex blacklist | url for domain w/o http or https | 1 for enable, 0 for diabled | A description
+0 = exact whitelist,<br>1 = exact blacklist,<br>2 = regex whitelist,<br>3 = regex blacklist | url for domain w/o http or https | 1 for enable, 0 for diabled | A description
