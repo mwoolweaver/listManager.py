@@ -11,6 +11,7 @@ from lib.check_group import checkGroup
 
 def addDomainGravity(gravity, sqlError, needToAddByGroup, groups):
 
+    a = 0
     check = [None] * len(needToAddByGroup)
     if check != needToAddByGroup:
         for addNew in needToAddByGroup: # For every domain in list
