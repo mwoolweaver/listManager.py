@@ -9,7 +9,7 @@ from lib.debug import debuginfo, debuginfoDBV, restart_pihole, sqlError, docker,
 
 from lib.findGravity import findGravity
 
-from lib.fetchListToAdd import fetchFiles
+from lib.fetchListToAdd import fetchEntries, fetchGroups
 
 from lib.getFromGravity import getGravity
 
@@ -19,11 +19,13 @@ from lib.add_to_gravity import addDomainGravity, checkGroup
 
 from lib.deleteFromGravity import deleteFromGravity
 
-anudeepND_whitelist_csv_file = r'domains/anudeepND_whitelist.csv'
-anudeepND_optional_csv_file = r'domains/anudeepND_optional.csv'
-mmotti_regex_csv_file = r'domains/mmotti_regex.csv'
-mmotti_whitelist_csv_file = r'domains/mmotti_whitelist.csv'
-filesWeNeed = [anudeepND_whitelist_csv_file, mmotti_regex_csv_file, mmotti_whitelist_csv_file]
+anudeepND_whitelist_csv_file = r'domains/anudeepND_whitelist.tsv'
+anudeepND_optional_csv_file = r'domains/anudeepND_optional.tsv'
+mmotti_regex_csv_file = r'domains/mmotti_regex.tsv'
+mmotti_whitelist_csv_file = r'domains/mmotti_whitelist.tsv'
+entriesWeNeed = [anudeepND_whitelist_csv_file, mmotti_regex_csv_file, mmotti_whitelist_csv_file]
+
+groups_tsv = r'domains/groups.tsv'
 
 newAddition = False
 newGroup = False
@@ -38,10 +40,11 @@ notdebug('We Found Gravity')
 
 notdebug('Fetch Files Entries Are Sourced From')
 
-filesFound = fetchFiles(filesWeNeed)
+filesFound = fetchEntries(entriesWeNeed)
 
-groupsWeNeed = filesFound[0]
-entriesToAddByGroup = filesFound[1]
+groupsWeNeed = fetchGroups(groups_tsv)
+
+entriesToAddByGroup = filesFound
 
 notdebug('Fetched Files Entries Are Sourced From')
 
@@ -70,7 +73,7 @@ notdebug('Fetched Entries From Gravity Database')
 
 notdebug('Parsing Entries Fetched From Database')
 
-gravityParsed = parseGravity(filesFound, gravityFetched)
+gravityParsed = parseGravity(filesFound, groupsWeNeed, gravityFetched)
 
 needToAddByGroup = gravityParsed[0]
 needToDeleteByGroup = gravityParsed[1]

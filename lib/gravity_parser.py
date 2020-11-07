@@ -7,33 +7,32 @@
 
 from lib.debug import debuginfo, debuginfoDBV, debuginfoDBVV, debuginfoDBVVV, sqlError
 
-def parseGravity(filesFound, gravityFetched):
+def parseGravity(filesFound, groupsWeNeed, gravityFetched):
 
     needToDeleteByGroup = []
     needToAddByGroup = []
 
-    groups = filesFound[0]
+    groups = groupsWeNeed
 
 
-    entriesToAddByGroup = filesFound[1]
+    entriesToAddByGroup = filesFound
 
     scriptAddGravityByGroup = gravityFetched[0]
     userAddGravity = gravityFetched[1]
 
     domainsByGroupNew = []
-    domainCommentsByGroupNew = []
+    #domainCommentsByGroupNew = []
     # Make a list of domains in new list
-    for groupEntry in entriesToAddByGroup: # for each group
-        toAddList = []
-        toAddCommentList = []
-        for entryNew in groupEntry: # for each entry
-            debuginfoDBVVV('    - {}'.format(entryNew))
-            toAddList.append(entryNew[1])
-            toAddCommentList.append(entryNew[1])
-        
-        domainsByGroupNew.append(toAddList)
-        domainCommentsByGroupNew.append(toAddCommentList)
+    #debuginfo(entriesToAddByGroup)
+    for groupOfEntries in filesFound:
+        #print('\n\n')
+        #print (groupOfEntries)
+        #print('\n')
+        domainsList = []
+        for entry in groupOfEntries:
+            domainsList.append(entry[1])
 
+        domainsByGroupNew.append(domainsList)
 
     domainsByGroupOld = []
 
@@ -117,7 +116,7 @@ def parseGravity(filesFound, gravityFetched):
 
     debuginfo('[i] Checking Gravity for domains previously added by script that are NOT in new script.')
     x = 0
-    debuginfoDBVV(domainsByGroupOld)
+    #debuginfoDBVV(domainsByGroupOld)
     checkEmpty = [None] * len(domainsByGroupOld)
     if domainsByGroupOld != checkEmpty:
         for newDomainGroup in domainsByGroupNew: # for every domain in new script.
@@ -193,7 +192,6 @@ def parseGravity(filesFound, gravityFetched):
         INgravityNOTnewList.append(None)
         needToDeleteByGroup.append(None)
         debuginfo('[i] Found no entries previously added by script that are NOT in new script.') # notify of negative result
-        debuginfo(domainsByGroupNew)
         for NEWGROUP in domainsByGroupNew:
 
             domainGroupIndex = domainsByGroupNew.index(NEWGROUP)

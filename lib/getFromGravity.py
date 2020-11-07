@@ -69,7 +69,6 @@ def getGroups(groups, gravity, sqlError):
     test = []
     debuginfo('[i] Checking Gravity for groups we need')
     for group in groups:
-
         gravityGroups = gravity.execute("SELECT * FROM 'group' WHERE name LIKE '{}'".format(group[1]))
         groupsInGravity = gravityGroups.fetchall()
         test = groupsInGravity

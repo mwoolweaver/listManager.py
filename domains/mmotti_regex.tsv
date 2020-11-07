@@ -1,0 +1,15 @@
+type	domain	enabled	comment
+3	^ad([sxv]?[0-9]*|system)[_.-]([^.[:space:]]+\.){1,}|[_.-]ad([sxv]?[0-9]*|system)[_.-]	1	mmotti/regex – qjz7zk
+3	^(.+[_.-])?adse?rv(er?|ice)?s?[0-9]*[_.-]	1	mmotti/regex - qjz7zk
+3	^(.+[_.-])?telemetry[_.-]	1	mmotti/regex - qjz7zk
+3	^adim(age|g)s?[0-9]*[_.-]	1	mmotti/regex - qjz7zk
+3	^adtrack(er|ing)?[0-9]*[_.-]	1	mmotti/regex - qjz7zk
+3	^advert(s|is(ing|ements?))?[0-9]*[_.-]	1	mmotti/regex - qjz7zk
+3	^aff(iliat(es?|ion))?[_.-]	1	mmotti/regex - qjz7zk
+3	^analytics?[_.-]	1	mmotti/regex - qjz7zk
+3	^banners?[_.-]	1	mmotti/regex - qjz7zk
+3	^beacons?[0-9]*[_.-]	1	mmotti/regex - qjz7zk
+3	^count(ers?)?[0-9]*[_.-]	1	mmotti/regex - qjz7zk
+3	^mads\.	1	mmotti/regex - qjz7zk
+3	^pixels?[-.]	1	mmotti/regex - qjz7zk
+3	^stat(s|istics)?[0-9]*[_.-]	1	mmotti/regex - qjz7zk
