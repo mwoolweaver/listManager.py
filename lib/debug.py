@@ -110,7 +110,7 @@ def debuginfoDBVVV(message):
 
 
 def notdebug(message):
-    if ifDebug == True or ifDebugx2 == True:
+    if ifDebug == True or ifDebugx2 == True and ifDebugx3 == True and ifDebugx4 == True:
         return()
     else:
         return(print (message))
