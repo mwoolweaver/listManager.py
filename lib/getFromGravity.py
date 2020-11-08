@@ -13,9 +13,9 @@ def getUserAddGravity(groups, gravity, sqlError, commentTags):
     debuginfo ('[i] Collecting user added entries from gravity.')
     userAddFound = []
     # Check Gravity database for exact whitelisted domains added by user, if NOT '%qjz9zk%' OR isnull it is NOT from this script
-
+    fetchUserAdd = ""
     if len(groups) == 4:
-        fetchUserAdd = "SELECT * FROM domainlist WHERE comment isnull OR comment NOT LIKE '%{}%' and comment NOT LIKE '%{}%' and comment NOT LIKE '%{}%' and comment NOT LIKE '%{}%'".format(commentTags[0], commentTags[1], commentTags[2], commentTags[3])
+        fetchUserAdd = "SELECT type, domain, enabled, comment FROM domainlist WHERE comment isnull OR comment NOT LIKE '%{}%' and comment NOT LIKE '%{}%' and comment NOT LIKE '%{}%' and comment NOT LIKE '%{}%'".format(commentTags[0], commentTags[1], commentTags[2], commentTags[3])
     elif len(groups) == 3:
         fetchUserAdd = "SELECT * FROM domainlist WHERE comment isnull OR comment NOT LIKE '%{}%' and comment NOT LIKE '%{}%' and comment NOT LIKE '%{}%'".format(commentTags[0], commentTags[1], commentTags[2])
     elif len(groups) == 2:
