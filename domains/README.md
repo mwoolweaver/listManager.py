@@ -1,7 +1,12 @@
-## Why .tsv??
+# domains
+
+___
+
+## Why .tsv
 
 > TSV is an alternative to the common comma-separated values (CSV) format, which often causes difficulties because of the need to escape commas – literal commas are very common in text data, but literal tab stops are infrequent in running text.[[1]]
 ___
+
 ## groups.tsv
 
 enabled | name | description | comment
@@ -10,6 +15,7 @@ enabled | name | description | comment
 
 more info -> [docs.pi-hole.net/database/gravity/groups/#group-management]
 ___
+
 ## all other .tsv files found in this directory
 
 tpye | domain | enable | comment
