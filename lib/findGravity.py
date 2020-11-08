@@ -41,7 +41,7 @@ def findGravity():
                     gravity = gravityConnection.cursor()
                     
                     debuginfo('[i] Connected to Gravity. - {}\n'.format(gravity_db_location))
-                    #        0           1              2
+                     #      0           1              2
                     return (True, gravityConnection, gravity)
 
                 except sqlError as error:

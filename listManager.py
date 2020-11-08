@@ -50,7 +50,6 @@ notdebug('Fetched Files Entries Are Sourced From')
 
 if uninstall == True:
     deleteFromGravity(gravity, groupsWeNeed, sqlError, uninstall)
-
     ifChangesMade = gravityConnection.total_changes
 
     if ifChangesMade > 0:

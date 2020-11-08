@@ -200,4 +200,5 @@ def parseGravity(filesFound, groups, gravityFetched):
                 needToAddByGroup.append(needToAdd)
     debuginfoDBVV(needToAddByGroup)
     addedByUser = userAddDomainList
+#
     return (needToAddByGroup, needToDeleteByGroup, addedByUser)

@@ -13,25 +13,30 @@ def getUserAddGravity(groups, gravity, sqlError, commentTags):
     debuginfo ('[i] Collecting user added entries from gravity.')
     userAddFound = []
     # Check Gravity database for exact whitelisted domains added by user, if NOT '%qjz9zk%' OR isnull it is NOT from this script
-    fetchUserAdd = ""
+    fetchUserAdd = None
     if len(groups) == 4:
-        fetchUserAdd = "SELECT type, domain, enabled, comment FROM domainlist WHERE comment isnull OR comment NOT LIKE '%{}%' and comment NOT LIKE '%{}%' and comment NOT LIKE '%{}%' and comment NOT LIKE '%{}%'".format(commentTags[0], commentTags[1], commentTags[2], commentTags[3])
+        fetchUserAdd = "SELECT * FROM domainlist WHERE comment isnull OR comment NOT LIKE '%{}%' and comment NOT LIKE '%{}%' and comment NOT LIKE '%{}%' and comment NOT LIKE '%{}%'".format(commentTags[0], commentTags[1], commentTags[2], commentTags[3])
     elif len(groups) == 3:
         fetchUserAdd = "SELECT * FROM domainlist WHERE comment isnull OR comment NOT LIKE '%{}%' and comment NOT LIKE '%{}%' and comment NOT LIKE '%{}%'".format(commentTags[0], commentTags[1], commentTags[2])
     elif len(groups) == 2:
-        fetchUserAdd = "SELECT * FROM domainlist WHERE comment NOT LIKE '%{}%' and comment NOT LIKE '%{}%'".format(commentTags[0], commentTags[1])
+        fetchUserAdd = "SELECT * FROM domainlist WHERE comment isnull OR comment NOT LIKE '%{}%' and comment NOT LIKE '%{}%'".format(commentTags[0], commentTags[1])
     elif len(groups) == 1:
-        fetchUserAdd = "SELECT * FROM domainlist WHERE comment NOT LIKE '%{}%'".format(commentTags[0])
+        fetchUserAdd = "SELECT * FROM domainlist WHERE comment isnull OR comment NOT LIKE '%{}%'".format(commentTags[0])
     
-    try:
-        userAdd = gravity.execute(fetchUserAdd)
-        userAddFetched = userAdd.fetchall()
-        debuginfo('    - Found {} user added entries in gravity\n'.format(len(userAddFetched)))
-        userAddFound = userAddFetched
+    if fetchUserAdd != None:
+        try:  
+            userAdd = gravity.execute(fetchUserAdd)
+            userAddFetched = userAdd.fetchall()
+            debuginfo('    - Found {} user added entries in gravity\n'.format(len(userAddFetched)))
+            userAddFound = userAddFetched
 
-    except sqlError as error:
-        debuginfo (error)
-    
+        except sqlError as error:
+            debuginfo('Something is wrong @ fetchUserAdd')
+            debuginfo (error)
+        
+    else:
+        debuginfo('Something is wrong @ fetchUserAdd')
+#
     return (userAddFound)
 
 def getScriptAddGravity(groups, gravity, sqlError, commentTags):
@@ -57,7 +62,7 @@ def getScriptAddGravity(groups, gravity, sqlError, commentTags):
         
         except sqlError as error:
             debuginfo("Something is wrong @ fetching domain by group_id from script. \nError: {}\n".format(error))
-
+#
     return (entriesFoundByGroup)
 
 def getGroups(groups, gravity, sqlError):
@@ -99,7 +104,7 @@ def getGroups(groups, gravity, sqlError):
         debuginfo('FOUND IT!!!! {} group_id = {}'.format(checkGroup[1], checkGroup[1]))
         debuginfo(groupsChecked)
         groupIDList.append(groupsChecked)
-
+#
     return (groupIDList, groupIDList, commentTag, newGroup)
 
 def getGravity(groups, gravity, sqlError):

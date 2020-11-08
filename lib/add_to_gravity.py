@@ -34,4 +34,5 @@ def addDomainGravity(gravity, sqlError, needToAddByGroup, groups):
     else:
         debuginfo ('    - ALL entries have been found. No entries to add.\n')
         ALLFOUND = True
+#
         return (ALLFOUND)
