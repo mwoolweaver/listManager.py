@@ -3,8 +3,6 @@
     + [1.1.1. groups.tsv](#111-groupstsv)
     + [1.1.2. all other .tsv files found in this directory](#112-all-other-tsv-files-found-in-this-directory)
 
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
 # 1. domains/
 
 Where we store our domains in `.tsv` format.
