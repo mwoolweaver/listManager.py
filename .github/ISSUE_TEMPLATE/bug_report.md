@@ -28,7 +28,7 @@ A clear and concise description of what you expected to happen.
 
 If applicable, add screenshots to help explain your problem.
 
-## (please complete the following information):
+## (please complete the following information)
 
 - OS: [e.g. iOS]
 - Python Version [e.g. 22]
@@ -38,6 +38,4 @@ If applicable, add screenshots to help explain your problem.
 
 Add any other context about the problem here.
 
-```
-replace this line with the ouput of passing -dbv
-```
+`replace this line with the ouput of passing -dbv`
