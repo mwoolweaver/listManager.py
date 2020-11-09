@@ -13,8 +13,8 @@ ___
 [2]: https://www.iana.org/assignments/media-types/text/tab-separated-values
 
 > TSV is an alternative to the common [comma-separated values](https://en.wikipedia.org/wiki/Comma-separated_values) (CSV) format, which
-> often causes difficulties because of the need to [escape](https://en.wikipedia.org/wiki/Escape_character) commas – [literal](https://en.wikipedia.org/wiki/Character_literal) commas
-> are very common in text data, but literal tab stops are infrequent in running text.
+> often causes difficulties because of the need to [escape](https://en.wikipedia.org/wiki/Escape_character) commas – [literal](https://en.wikipedia.org/wiki/Character_literal)
+> commas are very common in text data, but literal tab stops are infrequent in running text.
 > The IANA standard for TSV[[2]] achieves simplicity by simply disallowing tabs within fields.
 >
 > Wikipedia - [Tab-separated values](https://en.wikipedia.org/wiki/Tab-separated_values)
