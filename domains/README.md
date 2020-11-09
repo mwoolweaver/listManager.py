@@ -1,4 +1,8 @@
-<!-- TOC -->autoauto- [1. domains/](#1-domains)auto    - [1.1. Why `.tsv`](#11-why-tsv)auto        - [1.1.1. groups.tsv](#111-groupstsv)auto        - [1.1.2. all other .tsv files found in this directory](#112-all-other-tsv-files-found-in-this-directory)autoauto<!-- /TOC -->
+<!-- TOC -->
+[1. domains/](#1-domains)auto
+- [1.1. Why `.tsv`](#11-why-tsv)auto
+- [1.1.1. groups.tsv](#111-groupstsv)auto
+- [1.1.2. all other .tsv files found in this directory](#112-all-other-tsv-files-found-in-this-directory)autoauto<!-- /TOC -->
 
 # 1. domains/
 
