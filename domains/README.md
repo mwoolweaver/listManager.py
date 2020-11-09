@@ -1,5 +1,5 @@
 - [domains/](#domains)
-  * [Why `.tsv`](#why--tsv)
+  * [Why `.tsv`](#why-tsv)
     + [groups.tsv](#groupstsv)
     + [all other .tsv files found in this directory](#all-other-tsv-files-found-in-this-directory)
 
