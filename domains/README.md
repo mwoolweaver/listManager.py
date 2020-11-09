@@ -1,15 +1,22 @@
-# domains
+<!-- TOC -->autoauto- [1. domains/](#1-domains)auto    - [1.1. Why `.tsv`](#11-why-tsv)auto        - [1.1.1. groups.tsv](#111-groupstsv)auto        - [1.1.2. all other .tsv files found in this directory](#112-all-other-tsv-files-found-in-this-directory)autoauto<!-- /TOC -->
 
+# 1. domains/
+
+Where we store our domains in `.tsv` format.
 ___
 
-## Why .tsv
+## 1.1. Why `.tsv`
 
 > TSV is an alternative to the common comma-separated values (CSV) format, which
 > often causes difficulties because of the need to escape commas – literal commas
 > are very common in text data, but literal tab stops are infrequent in running text.[[1]]
+
+[//]: # (Link to info about .tsv format)
+[1]: http://jkorpela.fi/TSV.html#format
+
 ___
 
-## groups.tsv
+### 1.1.1. groups.tsv
 
 enabled | name | description | comment
 ------------ | -------------| ------------ | -------------  
@@ -17,9 +24,10 @@ enabled | name | description | comment
 
 [//]: # (@Pi-hole documentation pages for Gravity SQLite Database)
 more info -> <https://docs.pi-hole.net/database/gravity/groups/#group-management>
+
 ___
 
-## all other .tsv files found in this directory
+### 1.1.2. all other .tsv files found in this directory
 
 tpye | domain | enable | comment
 ------------ | -------------| ------------ | -------------  
@@ -27,6 +35,3 @@ tpye | domain | enable | comment
 
 [//]: # (@Pi-hole documentation pages for Gravity SQLite Database)
 more info -> <https://docs.pi-hole.net/database/gravity/#domain-tables-domainlist>
-
-[//]: # (Link to info about .tsv format)
-[1]: http://jkorpela.fi/TSV.html#format
