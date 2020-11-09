@@ -8,7 +8,7 @@ ___
     + [groups.tsv](#groupstsv)
     + [all other .tsv files found in this directory](#all-other-tsv-files-found-in-this-directory)
 
-## Why `.tsv`
+## Why TSV
 
 [2]: https://www.iana.org/assignments/media-types/text/tab-separated-values
 
