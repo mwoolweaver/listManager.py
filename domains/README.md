@@ -1,14 +1,14 @@
-- [1. domains/](#1-domains-)
-  * [1.1. Why `.tsv`](#11-why--tsv-)
-    + [1.1.1. groups.tsv](#111-groupstsv)
-    + [1.1.2. all other .tsv files found in this directory](#112-all-other-tsv-files-found-in-this-directory)
+- [domains/](#domains)
+  * [Why `.tsv`](#why--tsv)
+    + [groups.tsv](#groupstsv)
+    + [all other .tsv files found in this directory](#all-other-tsv-files-found-in-this-directory)
 
-# 1. domains/
+# domains/
 
 Where we store our domains in `.tsv` format.
 ___
 
-## 1.1. Why `.tsv`
+## Why `.tsv`
 
 > TSV is an alternative to the common comma-separated values (CSV) format, which
 > often causes difficulties because of the need to escape commas – literal commas
@@ -19,7 +19,7 @@ ___
 
 ___
 
-### 1.1.1. groups.tsv
+### groups.tsv
 
 enabled | name | description | comment
 ------------ | -------------| ------------ | -------------  
@@ -30,7 +30,7 @@ more info -> <https://docs.pi-hole.net/database/gravity/groups/#group-management
 
 ___
 
-### 1.1.2. all other .tsv files found in this directory
+### all other .tsv files found in this directory
 
 tpye | domain | enable | comment
 ------------ | -------------| ------------ | -------------  
