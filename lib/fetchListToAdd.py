@@ -24,3 +24,14 @@ def fetchGroups(fileNeeded):
     groups = list(location.itertuples(index=False, name=None))
 #
     return (groups)
+
+#def fetchFiles():
+#    
+#    groups_tsv = r'groups.tsv'
+#    groups = fetchGroups(groups_tsv)
+#    
+#    groupsNeeded = groups[0:4]
+#    
+#    entryFiles = groups[4]
+    
+    

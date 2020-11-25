@@ -12,8 +12,8 @@ def getUserAddGravity(groups, gravity, sqlError, commentTags):
     # check database for user added exact whitelisted domains
     debuginfo ('[i] Collecting user added entries from gravity.')
     userAddFound = []
+    userAddFetched = []
     # Check Gravity database for exact whitelisted domains added by user, if NOT '%qjz9zk%' OR isnull it is NOT from this script
-    fetchUserAdd = None
     if len(groups) == 4:
         fetchUserAdd = "SELECT * FROM domainlist WHERE comment isnull OR comment NOT LIKE '%{}%' and comment NOT LIKE '%{}%' and comment NOT LIKE '%{}%' and comment NOT LIKE '%{}%'".format(commentTags[0], commentTags[1], commentTags[2], commentTags[3])
     elif len(groups) == 3:
@@ -22,20 +22,28 @@ def getUserAddGravity(groups, gravity, sqlError, commentTags):
         fetchUserAdd = "SELECT * FROM domainlist WHERE comment isnull OR comment NOT LIKE '%{}%' and comment NOT LIKE '%{}%'".format(commentTags[0], commentTags[1])
     elif len(groups) == 1:
         fetchUserAdd = "SELECT * FROM domainlist WHERE comment isnull OR comment NOT LIKE '%{}%'".format(commentTags[0])
-    
+    else:
+        fetchUserAdd = None
+        debuginfo('We gotta have some comment tags to look for...')
+
     if fetchUserAdd != None:
         try:  
             userAdd = gravity.execute(fetchUserAdd)
             userAddFetched = userAdd.fetchall()
             debuginfo('    - Found {} user added entries in gravity\n'.format(len(userAddFetched)))
-            userAddFound = userAddFetched
 
         except sqlError as error:
             debuginfo('Something is wrong @ fetchUserAdd')
             debuginfo (error)
-        
+            exit(1)
+    
     else:
         debuginfo('Something is wrong @ fetchUserAdd')
+        
+    if userAddFetched == []:
+        userAddFound = [None]
+    else:
+        userAddFound = userAddFetched
 #
     return (userAddFound)
 
@@ -62,6 +70,7 @@ def getScriptAddGravity(groups, gravity, sqlError, commentTags):
         
         except sqlError as error:
             debuginfo("Something is wrong @ fetching domain by group_id from script. \nError: {}\n".format(error))
+            exit(1)
 #
     return (entriesFoundByGroup)
 
@@ -79,7 +88,7 @@ def getGroups(groups, gravity, sqlError):
         test = groupsInGravity
         grouptoadd = group[0:3]
         
-        if groupsInGravity == [] or test[0][2] not in grouptoadd[1] :
+        if groupsInGravity == [] or test[0][2] not in grouptoadd[1]:
                 debuginfo('NEDD TO ADD {} !!!!!!!!'.format(grouptoadd))
                 try:
                     gravity.execute("INSERT OR IGNORE INTO 'group' (enabled, name, description) VALUES {}".format(grouptoadd))
@@ -90,6 +99,7 @@ def getGroups(groups, gravity, sqlError):
                     debuginfo('Something wrong @ INSERT group')
                     debuginfo(error)
                     groupNeedAdd.append(grouptoadd)
+                    exit(1)
 
         else:
             debuginfo('    - Found group_id {} for {}'.format(groupsInGravity[0][0], group[1]))

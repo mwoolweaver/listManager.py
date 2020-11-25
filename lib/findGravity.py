@@ -46,7 +46,7 @@ def findGravity():
 
                 except sqlError as error:
                     debuginfo("Failed to connect to Gravity. Error: {}".format(error))
-                    return(exit(1))
+                    exit(1)
             
             elif header[:16] != b'SQLite format 3\x00':
                 debuginfo('Something is wrong @ reading {}'.format(gravity_db_location))

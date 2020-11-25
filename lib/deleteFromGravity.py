@@ -26,9 +26,9 @@ def deleteFromGravity(gravity, needToDeleteList, sqlError, uninstall):
                     gravity.executescript(sql_delete_domain) # Delete domain from gravity
 
                 except sqlError as error:
-
                     print ('Failed to delete {}'.format(needTOdelete[2]))
                     print (error)
+                    exit(1)
 
             return (len(needToDeleteList))
 
@@ -46,16 +46,23 @@ def deleteFromGravity(gravity, needToDeleteList, sqlError, uninstall):
                 #debuginfo('    - deleting {}. {}'.format(needToDeleteList.index(needTOdelete) + 1, needTOdelete[0][2])) # show us what needs to be deleted
                 sql_delete_domain = " DELETE FROM domainlist WHERE comment LIKE '%{}%' ".format(comments[x]) # Make our sql statement
                 sql_delete_group = " DELETE FROM 'group' WHERE name LIKE '{}' ".format(names[x])
-                print(sql_delete_domain)
-                print(sql_delete_group)
                 try:
+                    debuginfo(sql_delete_domain)
                     gravity.executescript(sql_delete_domain) # Delete domain from gravity
+
+                except sqlError as error:
+                    print ('Failed to delete {}'.format(sql_delete_domain))
+                    print (error)
+                    exit(1)
+                
+                try:
+                    debuginfo(sql_delete_group)
                     gravity.executescript(sql_delete_group)
 
                 except sqlError as error:
-
-                    print ('Failed to delete {}'.format(needTOdelete[2]))
+                    print ('Failed to delete {}'.format(sql_delete_group))
                     print (error)
+                    exit(1)
 
                 x -= 1
 

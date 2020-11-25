@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# Project homepage: https://github.com/anudeepND/whitelist
+# Project homepage: https://github.com/mwoolweaver
 # Licence: <http://unlicense.org/>
 # Created by Michael Woolweaver <m.woolweaver@icloud.com>
 # ================================================================================
@@ -23,9 +23,10 @@ anudeepND_whitelist_csv_file = r'domains/anudeepND_whitelist.tsv'
 anudeepND_optional_csv_file = r'domains/anudeepND_optional.tsv'
 mmotti_regex_csv_file = r'domains/mmotti_regex.tsv'
 mmotti_whitelist_csv_file = r'domains/mmotti_whitelist.tsv'
+
 entriesWeNeed = [anudeepND_whitelist_csv_file, mmotti_regex_csv_file, mmotti_whitelist_csv_file]
 
-groups_tsv = r'domains/groups.tsv'
+groups_tsv = r'groups.tsv'
 
 newAddition = False
 newGroup = False

@@ -11,7 +11,7 @@ def checkGroupIFCorrect(gravity, sqlError, groups, commentTags):
 
     needGroupList = []
     x = 0
-    
+
     debuginfo('[i] Checking for group_id on entries added by script!!!!!')
     for group in groups: # For every group in list
         
@@ -29,15 +29,11 @@ def checkGroupIFCorrect(gravity, sqlError, groups, commentTags):
             needGroup = None
             needGroupList.append(needGroup)
 
-    #print (needGroupList)
     check = [None] * len(needGroupList)
-    #print (check)
     if check == needGroupList:
         debuginfo('[i] No entries need group_id updated\n')
         ALLHAVE = True
-#
         return(needGroupList, ALLHAVE)
-
     else:
         ALLHAVE = False
         return(needGroupList, ALLHAVE)
@@ -48,10 +44,11 @@ def addGroupToDomain(gravity, sqlError, needGroups, groups, newDomains, newGroup
     needGroup = needGroups[0]
 
     if ALLHAVE == False:
-        debuginfo('Adding group_id to entries')
         for group in groups:
             groupsIndex = groups.index(group)
             groupID = group[0]
+            debuginfo('Adding group_id to entries')
+            debuginfo(groupID[0:3])
             for groupNeeded in needGroup:
 
                 needGroupIndex = needGroup.index(groupNeeded)
@@ -60,7 +57,6 @@ def addGroupToDomain(gravity, sqlError, needGroups, groups, newDomains, newGroup
                     for domain in groupNeeded:
 
                         debuginfo(domain[0:3])
-                        debuginfo(groupID)
                         sql_add_group_id = None
                         if newDomains == True or ALLHAVE == False:
                             sql_add_group_id = "UPDATE domainlist_by_group SET group_id={} WHERE domainlist_id = {} ".format(group[0][0], domain[0])
@@ -79,6 +75,7 @@ def addGroupToDomain(gravity, sqlError, needGroups, groups, newDomains, newGroup
                             except sqlError as error:
                                 debuginfo('Failed to {}'.format(sql_add_group_id))
                                 debuginfo(error)
+                                exit(1)
 
 
 def checkGroup(gravity, sqlError, ourGroupsInGravity, commentTags, newAddition, newGroup):

@@ -1,0 +1,4 @@
+enabled	name	description	comment	file
+1	anudeepND/whitelist	https://github.com/anudeepND/whitelist	qjz9zk	domains/anudeepND_whitelist.tsv
+1	mmotti/regex	https://github.com/mmotti/pihole-regex	qjz7zk	domains/mmotti_regex.tsv
+1	mmotti/whitelist	https://github.com/mmotti/pihole-regex	qjz6zk	domains/mmotti_whitelist.tsv

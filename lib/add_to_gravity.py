@@ -27,6 +27,7 @@ def addDomainGravity(gravity, sqlError, needToAddByGroup, groups):
                     except sqlError as error:
                         debuginfo ('Failed to add {}'.format(add[1]))
                         debuginfo (error)
+                        exit(1)
 
             elif addNew == None:
                 debuginfo ('    - No entries to add from {}'.format(group)) # show it to us

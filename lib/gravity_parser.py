@@ -15,23 +15,17 @@ def parseGravity(filesFound, groups, gravityFetched):
     scriptAddGravityByGroup = gravityFetched[0]
     userAddGravity = gravityFetched[1]
 
+    # Make a list of new entries
     domainsByGroupNew = []
-    #domainCommentsByGroupNew = []
-    # Make a list of domains in new list
-    #debuginfo(filesFound)
     for groupOfEntries in filesFound:
-        #print('\n\n')
-        #print (groupOfEntries)
-        #print('\n')
         domainsList = []
         for entry in groupOfEntries:
             domainsList.append(entry[1])
 
         domainsByGroupNew.append(domainsList)
 
-    domainsByGroupOld = []
-
     # Make a list of domains in old gravity
+    domainsByGroupOld = []
     for groupEntryOld in scriptAddGravityByGroup: # for each group
         if groupEntryOld != None:
             toRemoveList = []
@@ -44,39 +38,37 @@ def parseGravity(filesFound, groups, gravityFetched):
         else:
             domainsByGroupOld.append(None)
             continue
-        
+
         domainsByGroupOld.append(toRemoveList)
     
     # Make a list of domains added by user that are also in script
     userAddDomainList = []
-    userAddDomainCommentList = []
-    # for every entry added by user we found in the database
     userAddTempWE = []
     userAddTempBE = []
     userAddTempWR = []
     userAddTempBR = []
+    # Make sure we found some User added domains
     if userAddGravity != [None]:
-        for domainGroup in domainsByGroupNew: # for each group of new domains
+        # for every entry added by user we found in the database
+        for domainGroup in domainsByGroupNew:
             for userAddINgravity in userAddGravity:
                 if userAddINgravity != None:
                     if userAddINgravity[2] in domainGroup:
-                        if userAddINgravity[1] == 0:
+                        # Sort user added domains by type. see here ---> https://docs.pi-hole.net/database/gravity/#domain-tables-domainlist
+                        if userAddINgravity[1] == 0:    # 0 = exact whitelist
                             userAddDomainList.append(userAddINgravity[2])  # add the domain we found to the list we created
-                            userAddDomainCommentList.append(userAddINgravity[6])
                             userAddTempWE.append(userAddINgravity[2])
-                        elif userAddINgravity[1] == 1:
+                        elif userAddINgravity[1] == 1:  # 1 = exact blacklist
                             userAddDomainList.append(userAddINgravity[2])  # add the domain we found to the list we created
-                            userAddDomainCommentList.append(userAddINgravity[6])
                             userAddTempBE.append(userAddINgravity[2])
-                        elif userAddINgravity[1] == 2:
+                        elif userAddINgravity[1] == 2: # 2 = regex whitelist
                             userAddDomainList.append(userAddINgravity[2])  # add the domain we found to the list we created
-                            userAddDomainCommentList.append(userAddINgravity[6])
                             userAddTempWR.append(userAddINgravity[2])
-                        elif userAddINgravity[1] == 3:
+                        elif userAddINgravity[1] == 3: # 3 = regex blacklist
                             userAddDomainList.append(userAddINgravity[2])  # add the domain we found to the list we created
-                            userAddDomainCommentList.append(userAddINgravity[6])
                             userAddTempBR.append(userAddINgravity[2])
                         else:
+                            # technically we should never get here but just in case we do tell us when it heppens
                             debuginfo('Something is wrong @ parse User Add domain type.{}'.format(userAddINgravity))
                     else:
                         continue
@@ -86,11 +78,10 @@ def parseGravity(filesFound, groups, gravityFetched):
     
         userAddByType = [userAddTempWE, userAddTempBE, userAddTempWR, userAddTempBR]
         domainTypes =['exact whitelist', 'exact blacklist', 'regex whitelist', 'regex blacklist']
-        debuginfo('[i] Checking Gravity for domains added by user that are in new script.')
-        # Make user aware of User Added domains that are also in our script
+        # Make us aware of User Added domains that are also in our script
         w = 0
-
         if userAddDomainList != [] and userAddDomainList != [None]:  # If list not empty
+            debuginfo('[i] Checking Gravity for domains added by user that are in new script.')
             for userAdd in userAddByType:
                 debuginfo('[i] {} {} entries added by the user that would be added by script.\n'.format(len(userAdd), domainTypes[w]))
                 w += 1
@@ -99,10 +90,8 @@ def parseGravity(filesFound, groups, gravityFetched):
                         debuginfo('    {}. {}'.format(userAdd.index(userADD) + 1, userADD))  # Show us what we found
         # If we don't find any
         else:
-            #userAddDomainList.append(userAddINgravity)
             debuginfo ('    - {} domains added by the user that would be added by script.\n'.format(len(userAddDomainList))) # notify of negative result
     else:
-        debuginfo ('[i] Found no domains added by the user that would be added by script.') # notify of negative result
         userAddDomainList = userAddGravity
 
     # Check Gravity database for domains added by script that are not in new script
@@ -112,7 +101,8 @@ def parseGravity(filesFound, groups, gravityFetched):
     debuginfo('[i] Checking Gravity for domains previously added by script that are NOT in new script.')
     x = 0
     #debuginfoDBVV(domainsByGroupOld)
-    checkEmpty = [None] * len(domainsByGroupOld)
+    checkEmpty = [None] * len(domainsByGroupOld) # create a list of None values with as many values as there are groups
+    # If we found NO domains previously added by script we know we need to add them all so skip to after else:
     if domainsByGroupOld != checkEmpty:
         for newDomainGroup in domainsByGroupNew: # for every domain in new script.
             groupNeed = groups[x]
@@ -153,7 +143,6 @@ def parseGravity(filesFound, groups, gravityFetched):
                     continue
         
         # Check Gravity database for new domains to be added by script
-
         debuginfo('[i] Checking for domains not in Gravity.')
         for NEWGROUP in domainsByGroupNew:
             domainGroupIndex = domainsByGroupNew.index(NEWGROUP)
@@ -182,17 +171,15 @@ def parseGravity(filesFound, groups, gravityFetched):
                 needToAddByGroup.append(needToAdd)
             elif needToAdd == []:
                 needToAddByGroup.append(None)
-
+    # We found NO domains previously added by script so add all
     else:
         INgravityNOTnewList.append(None)
         needToDeleteByGroup.append(None)
         debuginfo('[i] Found no entries previously added by script that are NOT in new script.') # notify of negative result
         for NEWGROUP in domainsByGroupNew:
-
             domainGroupIndex = domainsByGroupNew.index(NEWGROUP)
             needToAdd = []
             for new in NEWGROUP:
-
                 newENTRYIndex = NEWGROUP.index(new)
                 needToAdd.append(filesFound[domainGroupIndex][newENTRYIndex])
             

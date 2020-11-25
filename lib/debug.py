@@ -20,6 +20,7 @@ def dir_path(string):
         return string
     except NotADirectoryError as error:
         debuginfo('Something Wrong @ dir_path. {}'.format(error))
+        exit(1)
 
 docker = False
 # setup arg parser
