@@ -5,7 +5,7 @@
 # Created by Michael Woolweaver <m.woolweaver@icloud.com>
 # ================================================================================
 
-from lib.debug import debuginfo, debuginfoDBV, restart_pihole, sqlError, docker, notdebug, uninstall
+from lib.debug import restart_pihole, sqlError, docker, notdebug, uninstall
 
 from lib.findGravity import findGravity
 
@@ -19,14 +19,12 @@ from lib.add_to_gravity import addDomainGravity, checkGroup
 
 from lib.deleteFromGravity import deleteFromGravity
 
-anudeepND_whitelist_csv_file = r'domains/anudeepND_whitelist.tsv'
-anudeepND_optional_csv_file = r'domains/anudeepND_optional.tsv'
-mmotti_regex_csv_file = r'domains/mmotti_regex.tsv'
-mmotti_whitelist_csv_file = r'domains/mmotti_whitelist.tsv'
-
-entriesWeNeed = [anudeepND_whitelist_csv_file, mmotti_regex_csv_file, mmotti_whitelist_csv_file]
-
 groups_tsv = r'groups.tsv'
+
+groups = fetchGroups(groups_tsv)
+
+groupsWeNeed = groups[0]
+entriesWeNeed = groups[1]
 
 newAddition = False
 newGroup = False
@@ -39,26 +37,32 @@ gravity = foundGravity[2]
 
 notdebug('We Found Gravity')
 
-notdebug('Fetch Files Entries Are Sourced From')
-
-filesFound = fetchEntries(entriesWeNeed)
-
-groupsWeNeed = fetchGroups(groups_tsv)
-
-entriesToAddByGroup = filesFound
-
-notdebug('Fetched Files Entries Are Sourced From')
-
 if uninstall == True:
+
+    notdebug("Removing Entries added by script.")
+
     deleteFromGravity(gravity, groupsWeNeed, sqlError, uninstall)
     ifChangesMade = gravityConnection.total_changes
 
     if ifChangesMade > 0:
         gravityConnection.commit()
-
         gravityConnection.close()
+        
+        notdebug('')
+        restart_pihole(docker)
+        notdebug('')
+        notdebug('Done. Happy ad-blocking :)')
+        notdebug('')
 
         exit(0)
+
+notdebug('Fetch Files Entries Are Sourced From domains/')
+
+filesFound = fetchEntries(entriesWeNeed)
+
+entriesToAddByGroup = filesFound
+
+notdebug('Fetched Entries From Sourced Files.')
 
 notdebug('Fetching Entries From Gravity Database')
 
@@ -106,3 +110,5 @@ if ifChangesMade > 0:
 notdebug('')
 notdebug('Done. Happy ad-blocking :)')
 notdebug('')
+
+exit(0)

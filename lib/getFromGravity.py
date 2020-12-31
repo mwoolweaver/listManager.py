@@ -98,7 +98,6 @@ def getGroups(groups, gravity, sqlError):
                 except sqlError as error:
                     debuginfo('Something wrong @ INSERT group')
                     debuginfo(error)
-                    groupNeedAdd.append(grouptoadd)
                     exit(1)
 
         else:

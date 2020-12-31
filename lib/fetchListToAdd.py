@@ -21,17 +21,10 @@ def fetchEntries(filesWeNeed):
 def fetchGroups(fileNeeded):
     
     location = pandas.read_csv(fileNeeded,delimiter='\t',encoding='utf-8')
-    groups = list(location.itertuples(index=False, name=None))
-#
-    return (groups)
+    groups = list(location.itertuples(index=False, name=None))       
 
-#def fetchFiles():
-#    
-#    groups_tsv = r'groups.tsv'
-#    groups = fetchGroups(groups_tsv)
-#    
-#    groupsNeeded = groups[0:4]
-#    
-#    entryFiles = groups[4]
-    
-    
+    lists =[]
+    for group in groups:
+        lists.append(r"domains/" + group[4])
+#
+    return (groups, lists)

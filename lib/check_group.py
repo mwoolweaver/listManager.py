@@ -5,7 +5,7 @@
 # Created by Michael Woolweaver <m.woolweaver@icloud.com>
 # ================================================================================
 
-from lib.debug import debuginfo, debuginfoDBV, sqlError
+from lib.debug import debuginfo, debuginfoDBV, notdebug, sqlError
 
 def checkGroupIFCorrect(gravity, sqlError, groups, commentTags):
 
@@ -44,6 +44,7 @@ def addGroupToDomain(gravity, sqlError, needGroups, groups, newDomains, newGroup
     needGroup = needGroups[0]
 
     if ALLHAVE == False:
+        notdebug("Correcting group")
         for group in groups:
             groupsIndex = groups.index(group)
             groupID = group[0]
@@ -76,7 +77,6 @@ def addGroupToDomain(gravity, sqlError, needGroups, groups, newDomains, newGroup
                                 debuginfo('Failed to {}'.format(sql_add_group_id))
                                 debuginfo(error)
                                 exit(1)
-
 
 def checkGroup(gravity, sqlError, ourGroupsInGravity, commentTags, newAddition, newGroup):
 
