@@ -1,9 +1,7 @@
 # listManager.py
 
-___
-listManager.py
-
 We store all info in `.tsv` format and parse it with [pandas](https://github.com/pandas-dev/pandas).
+___
 
 ## Why TSV
 
